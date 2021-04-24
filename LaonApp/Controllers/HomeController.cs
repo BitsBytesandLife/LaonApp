@@ -38,9 +38,11 @@ namespace LaonApp.Controllers
             var interestPayment = 0.00m;
             var principalPayment = 0.00m;
             var totalCost = 0.00m;
-           
+            var totalPrincipal = 0.00m;
+
             //var loanTerm = loan.Term * 12;
             var loanHelper = new LoanHelper.LoanUtils();
+            totalPrincipal = loan.Amount;
 
             var monthlyPayment = loanHelper.CalcPayment(loan.Amount, loan.Rate, loan.Term);
             var remainingBalance = loan.Amount;
@@ -52,7 +54,7 @@ namespace LaonApp.Controllers
                 interestPayment = loanHelper.CalcMonthyInterest(remainingBalance, loan.Rate);
                 
                 principalPayment = monthlyPayment - interestPayment;
-                
+                totalPrincipal += monthlyPayment - interestPayment;
 
                 var loanPayment = new LoanPayment();
                 
@@ -71,17 +73,19 @@ namespace LaonApp.Controllers
                 remainingBalance -= principalPayment;
                 
                 loanPayment.Balance = remainingBalance;
+                
                
 
                 loan.Payments.Add(loanPayment);
             }
 
             loan.Payment = monthlyPayment;
-            loan.TotalCost = totalCost;
+            
+            
             loan.TotalInterest = totalInterest;
-            
-          
-            
+            loan.TotalPrincipal = totalPrincipal;
+            loan.TotalCost = totalPrincipal + totalInterest;
+
             return View(loan);
         }
         
@@ -89,24 +93,7 @@ namespace LaonApp.Controllers
         // add the post
         public IActionResult App() 
         {
-            //var loan = new Loan();
-            //var loanPayment = new List<Loan>();
-
-            //var loanTerm = years * 12;
-
-            //var amount =loan.Amount = 100000.00m;
-            //var term = loan.Term = 5;
-            //decimal interest = loan.Rate = 3.5m;
-
-            //loan.Amount = amount;
-
-            // loan.Term = term;
-
-            //var loanTerm = term * 12;
-
-            //loan.Rate = interest;
-
-            //loanPayment.Add(loan);
+          
             Loan loan = new Loan();
 
             return View(loan);

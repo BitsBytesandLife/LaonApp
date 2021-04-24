@@ -9,48 +9,92 @@
     <div class="">
         <div class="row">
             <!--INPUTS COLUMN-->
-            <form asp-action="App" method="post">
-                <div class="form-group">
-                    <label asp-for="Amount">Loan Amount</label>
-                    <input type="number" asp-for="Amount" class="form-control" placeholder="Amount" value="150000" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Term">Years</label>
-                    <input type="number" asp-for="Term" class="form-control" placeholder="Term" value="60" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Rate">Interest Rate</label>
-                    <input type="number" asp-for="Rate" class="form-control" placeholder="Rate" value="3" />
-                </div>
-                <button type="submit" class="btn btn-success">Calculate</button>
-            </form>
+            <div class="col">
+                <form asp-action="App" method="post">
+                    <div class="form-group">
+                        <label asp-for="Amount">Loan Amount</label>
+                        <input type="number" asp-for="Amount" class="form-control" placeholder="Amount" value="150000" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Term">Years</label>
+                        <input type="number" asp-for="Term" class="form-control" placeholder="Term" value="60" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Rate">Interest Rate</label>
+                        <input type="number" asp-for="Rate" class="form-control" placeholder="Rate" value="3" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Calculate</button>
+                </form>
+            </div>
+            <div class="col">
+                <div class="col" style="border-style:groove; border-width: 1px; border-radius:4px;">
 
-            <table class=" table table-striped" id="payments">
-                <thead>
-                    <tr>
-                        <th>Month</th>
-                        <th>Payment</th>
-                        <th>Principal</th>
-                        <th>Interest</th>
-                        <th>Total Interest</th>
-                        <th>Balance</th>
-                    </tr>
-                </thead>
+                    <div class="row justify-content-center mt-1">
+                        <h3>Your Monthly Payments</h3>
+                    </div>
 
-                @for (int i = 0; i < Model.Payments.Count(); i++)
-                {
-                    <tr>
-                        <td>@Model.Payments[i].Month</td>
-                        <td>@Model.Payments[i].Payment.ToString("c")</td>
-                        <td>@Model.Payments[i].MonthlyPrincipal.ToString("c")</td>
-                        <td>@Model.Payments[i].MonthlyInterest.ToString("c")</td>
-                        <td>@Model.Payments[i].TotalInterest.ToString("c")</td>
-                        <td>@Model.Payments[i].Balance.ToString("c")</td>
-                    </tr>
-                }
-            </table>
-            <br />
+                    <div class="row justify-content-center mt-3">
+                        <h2 id="monthlyPayment">@Model.Payment.ToString("c")</h2>
+                    </div>
+
+
+                    <div class="row justify-content-center mt-5">
+
+                        <!--PRINCIPAL-->
+                        <div class="col-3">
+                            <h5>Total Principal</h5>
+                        </div>
+                        <div class="col-3 offset-6">
+                            <h5 id="totalPrincipal" class="text-right">@Model.TotalPrincipal.ToString("c")</h5>
+                        </div>
+                        <!--PRINCIPAL-->
+                        <!--INTEREST-->
+                        <div class="col-3">
+                            <h5>Total Interest</h5>
+                        </div>
+                        <div class="col-3 offset-6">
+                            <h5 id="totalInterest" class="text-right">@Model.TotalInterest.ToString("c")</h5>
+                        </div>
+                        <!--INTEREST-->
+                        <!--COST-->
+                        <div class="col-3">
+                            <h5>Total Cost</h5>
+                        </div>
+                        <div class="col-3 offset-6">
+                            <h5 id="totalCost" class="text-right">@Model.TotalCost.ToString("c")</h5>
+                        </div>
+                        <!--COST-->
+
+                    </div>
+                </div>
+         </div>
+            <br /><br />
+                <table class="table table-striped m-3" id="payments">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Payment</th>
+                            <th>Principal</th>
+                            <th>Interest</th>
+                            <th>Total Interest</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+
+                    @for (int i = 0; i < Model.Payments.Count(); i++)
+                    {
+                        <tr>
+                            <td>@Model.Payments[i].Month</td>
+                            <td>@Model.Payments[i].Payment.ToString("c")</td>
+                            <td>@Model.Payments[i].MonthlyPrincipal.ToString("c")</td>
+                            <td>@Model.Payments[i].MonthlyInterest.ToString("c")</td>
+                            <td>@Model.Payments[i].TotalInterest.ToString("c")</td>
+                            <td>@Model.Payments[i].Balance.ToString("c")</td>
+                        </tr>
+                    }
+                </table>
+                <br />
+            
         </div>
-        </div>
-    </div>
     
+ </div>
